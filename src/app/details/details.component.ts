@@ -14,11 +14,19 @@ export class DetailsComponent implements OnInit {
     private bookId: String;
     private book: Book;
 
-    constructor(private booksService: BooksService, private activatedRoute: ActivatedRoute) { }
+    constructor(
+        private booksService: BooksService,
+        private activatedRoute: ActivatedRoute,
+        private router: Router
+    ) { }
 
   ngOnInit() {
       this.activatedRoute.params.subscribe((params: Params) => this.bookId = params.id);
       this.booksService.getBook(this.bookId).forEach(res => this.book = res);
+  }
+
+  goBack() {
+      this.router.navigate(['/books']);
   }
 
 }

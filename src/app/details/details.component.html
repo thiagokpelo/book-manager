@@ -1,5 +1,38 @@
-<p>
-  details works!
-</p>
+<app-header></app-header>
 
-<code>{{book | json}}</code>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <img class="img-responsive" [src]="book?.volumeInfo.imageLinks?.large" alt="{{book?.volumeInfo.title}}">
+    </div>
+    <div class="col-md-9">
+      <h1>{{book?.volumeInfo.title}}</h1>
+      <h3>{{book?.volumeInfo.subtitle}}</h3>
+
+      <p [innerHTML]="book?.volumeInfo.description"></p>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Book Description</h3>
+        </div>
+        <div class="panel-body">
+          Authors: <ng-container *ngFor="let author of book?.volumeInfo.authors">{{author}} </ng-container>
+          <br>
+          Publisher: {{book?.volumeInfo.publisher}}
+          <br>
+          Published Date: {{book?.volumeInfo.publishedDate}}
+          <br>
+          Page Count: {{book?.volumeInfo.pageCount}}
+          <br>
+          Categories:
+          <ng-container *ngFor="let categorie of book?.volumeInfo.categories">
+            <span class="label label-default">{{categorie}}</span>
+            <br>
+          </ng-container>
+        </div>
+      </div>
+
+      <button class="btn btn-default" (click)="goBack()">Go Back</button>
+    </div>
+  </div>
+</div>

@@ -6,22 +6,27 @@ import { BooksComponent } from './books/books.component';
 import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: BooksComponent
-  },
-  {
-    path: 'books/details/:id',
-    component: DetailsComponent
-  },
-  {
-    path: '**',
-    component: ErrorComponent
-  }
+    {
+        path: 'books',
+        component: BooksComponent,
+    },
+    {
+        path: 'books/details/:id',
+        component: DetailsComponent
+    },
+    {
+        path: '',
+        redirectTo: '/books',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        component: ErrorComponent
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

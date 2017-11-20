@@ -11,7 +11,7 @@ import { BooksService } from './../../books/books.service';
 export class HeaderComponent implements OnInit {
 
     @Output()
-    private onBooks: EventEmitter<any>;
+    private onBooks: EventEmitter<any> = new EventEmitter();
 
     private searchText: String;
     private pages: String = '12';
@@ -23,7 +23,9 @@ export class HeaderComponent implements OnInit {
 
     serchBooks(f: NgForm): void {
         this.searchText = f.value.search;
-        this.booksService.search(this.searchText, this.pages).forEach(res => this.onBooks = res);
+        this.booksService
+            .search(this.searchText, this.pages)
+            .forEach(res => this.onBooks.emit(Object.assign(res, { searchText: this.searchText, maxResults: this.pages })));
     }
 
 }

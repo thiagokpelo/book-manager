@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      {{result?.totalItems}} Results for <strong>"{{searchText}}"</strong>
+      {{result?.totalItems}} Results for <strong>"{{result?.searchText}}"</strong>
     </div>
     <div class="col-md-6 form-group">
       <form class="form-inline pull-right">
@@ -25,5 +25,5 @@
     <app-card *ngFor="let book of books" [book]="book"></app-card>
   </div>
 
-  <app-pagination></app-pagination>
+  <app-pagination [maxResults]="result?.maxResults" [totalItems]="result?.totalItems"></app-pagination>
 </div>

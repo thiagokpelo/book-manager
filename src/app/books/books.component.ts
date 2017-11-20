@@ -10,12 +10,14 @@ import { BooksService } from './books.service';
 })
 export class BooksComponent implements OnInit {
 
+    private resultSearch;
+
     constructor() {}
 
     ngOnInit() {
     }
 
-    getBooks(books) {
-        console.log(books);
+    getBooks(result: any) {
+        this.resultSearch = result;
     }
 }
