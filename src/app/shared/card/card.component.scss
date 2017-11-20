@@ -1,0 +1,51 @@
+.thumbnail {
+  height: 430px;
+  overflow: hidden;
+
+  .linkImage {
+    display: block;
+    height: 196px;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  h3 {
+    $font-size: 24px;
+    $line-height: 1.1;
+    $lines-to-show: 2;
+
+    display: block;
+    display: -webkit-box;
+    height: $font-size*$line-height*$lines-to-show;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  p {
+    $font-size: 14px;
+    $line-height: 1.42857143;
+    $lines-to-show: 6;
+
+    display: block;
+    display: -webkit-box;
+    height: $font-size*$line-height*$lines-to-show;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .favorite {
+    float: right;
+  }
+}

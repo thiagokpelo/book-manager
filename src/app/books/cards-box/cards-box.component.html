@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      {{result?.totalItems}} Results for <strong>"{{searchText}}"</strong>
+    </div>
+    <div class="col-md-6 form-group">
+      <form class="form-inline pull-right">
+        <label class="radio-inline">
+          <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked> All
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Favorites
+        </label>
+        <label for="pages" class="pagesLabel">Books per page</label>
+        <select class="form-control" id="pages" name="pages" [(ngModel)]="pages">
+          <option value="12" selected>12</option>
+          <option value="24">24</option>
+          <option value="36">36</option>
+        </select>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <app-card *ngFor="let book of books" [book]="book"></app-card>
+  </div>
+
+  <app-pagination></app-pagination>
+</div>

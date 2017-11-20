@@ -1,0 +1,3 @@
+<app-header (onBooks)="getBooks($event)"></app-header>
+
+<app-cards-box *ngIf="resultSearch && resultSearch.items.length > 0" [result]="resultSearch" [searchText]="searchText"></app-cards-box>
