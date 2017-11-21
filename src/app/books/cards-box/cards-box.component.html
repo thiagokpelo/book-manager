@@ -13,17 +13,15 @@
         </label>
         <label for="pages" class="pagesLabel">Books per page</label>
         <select class="form-control" id="pages" name="pages" [(ngModel)]="pages">
-          <option value="12" selected>12</option>
-          <option value="24">24</option>
-          <option value="36">36</option>
+          <option *ngFor="let value of countPage" [ngValue]="value">{{value}}</option>
         </select>
       </form>
     </div>
   </div>
 
   <div class="row">
-    <app-card *ngFor="let book of books" [book]="book"></app-card>
+    <app-card *ngFor="let book of books" [book]="book" [searchText]="result?.searchText"></app-card>
   </div>
 
-  <app-pagination [maxResults]="result?.maxResults" [totalItems]="result?.totalItems"></app-pagination>
+  <app-pagination [maxResults]="result?.maxResults" [totalItems]="result?.totalItems" (onChangePage)="getPage($event)"></app-pagination>
 </div>

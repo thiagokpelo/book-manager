@@ -1,6 +1,7 @@
 import { BooksService } from './../books/books.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { Book } from './../shared/model/book';
 
@@ -9,10 +10,11 @@ import { Book } from './../shared/model/book';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
 
     private bookId: String;
     private book: Book;
+    private subscription: ISubscription;
 
     constructor(
         private booksService: BooksService,
@@ -21,8 +23,13 @@ export class DetailsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-      this.activatedRoute.params.subscribe((params: Params) => this.bookId = params.id);
+      this.subscription = this.activatedRoute.params
+          .subscribe((params: Params) => this.bookId = params.id);
       this.booksService.getBook(this.bookId).forEach(res => this.book = res);
+  }
+
+  ngOnDestroy() {
+      this.subscription.unsubscribe();
   }
 
   goBack() {

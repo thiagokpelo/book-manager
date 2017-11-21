@@ -1,5 +1,6 @@
-<app-header (onBooks)="getBooks($event)"></app-header>
+<app-header (onBooks)="getBooks($event)" [queryParam]="queryParam" [page]="page"></app-header>
 
 <app-cards-box
   *ngIf="resultSearch && resultSearch.items.length > 0"
-  [result]="resultSearch"></app-cards-box>
+  [result]="resultSearch"
+  (onChangePage)="getPage($event)"></app-cards-box>

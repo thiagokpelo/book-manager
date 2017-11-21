@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
 import { Book } from './../../shared/model/book';
 
@@ -15,6 +15,10 @@ export class CardsBoxComponent implements OnChanges {
     @Input('searchText')
     private searchText;
 
+    @Output('onChangePage')
+    private onChangePage: EventEmitter<String> = new EventEmitter();
+
+    private countPage: number[] = [12, 24, 36];
     private books: Book[];
 
     constructor() {}
@@ -23,7 +27,11 @@ export class CardsBoxComponent implements OnChanges {
         this.books = this.result ? this.createBooks(this.result.items) : [];
     }
 
-    createBooks(items) {
+    createBooks(items): Array<Book> {
         return items.map(item => new Book(item));
+    }
+
+    getPage(page: String): void {
+        this.onChangePage.emit(page);
     }
 }

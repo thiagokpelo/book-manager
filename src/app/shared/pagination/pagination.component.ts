@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-pagination',
@@ -8,19 +8,22 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PaginationComponent implements OnInit {
 
     @Input('maxResults')
-    private maxResults;
+    private maxResults: number;
 
     @Input('totalItems')
-    private totalItems;
+    private totalItems: number;
 
-    private pages = parseInt(this.totalItems, 10) / parseInt(this.maxResults, 10);
+    @Output('onChangePage')
+    private onChangePage: EventEmitter<any> = new EventEmitter();
 
-    constructor() { }
+    private pages = [1, 2, 3, 4, 5];
 
-    ngOnInit() {
-        console.log(this.maxResults);
-        console.log(this.totalItems);
-        console.log(this.pages);
+    constructor() {}
+
+    ngOnInit() {}
+
+    changePage(page: number) {
+        this.onChangePage.emit(page);
     }
 
 }
