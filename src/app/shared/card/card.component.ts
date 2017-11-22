@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { Book } from './../model/book';
 
@@ -14,6 +14,9 @@ export class CardComponent implements OnInit {
 
     @Input('searchText')
     private searchText: String;
+
+    @Output('onGetBookId')
+    private onGetBookId: EventEmitter<String> = new EventEmitter();
 
     constructor() { }
 
@@ -31,6 +34,10 @@ export class CardComponent implements OnInit {
         src_str = src_str ? src_str.replace(/(<mark>[^<>]*)((<[^>]+>)+)([^<>]*<\/mark>)/, '$1</mark>$2<mark>$4') : '';
 
         return src_str;
+    }
+
+    getBook(id: string): void {
+        this.onGetBookId.emit(id);
     }
 
 }

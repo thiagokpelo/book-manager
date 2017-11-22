@@ -11,10 +11,6 @@ const routes: Routes = [
         component: BooksComponent,
     },
     {
-        path: 'books/details/:id',
-        component: DetailsComponent
-    },
-    {
         path: '',
         redirectTo: '/books',
         pathMatch: 'full'

@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { ModalService } from './shared/modal/modal.service';
 import { BooksService } from './books/books.service';
 
 import { AppComponent } from './app.component';
@@ -14,7 +15,7 @@ import { DetailsComponent } from './details/details.component';
 import { ErrorComponent } from './error/error.component';
 import { PaginationComponent } from './shared/pagination/pagination.component';
 import { CardsBoxComponent } from './books/cards-box/cards-box.component';
-import { HeaderComponent } from './shared/header/header.component';
+import { ModalComponent } from './shared/modal/modal.component';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { HeaderComponent } from './shared/header/header.component';
         ErrorComponent,
         PaginationComponent,
         CardsBoxComponent,
-        HeaderComponent
+        ModalComponent
     ],
     imports: [
         HttpModule,
@@ -35,7 +36,8 @@ import { HeaderComponent } from './shared/header/header.component';
         AppRoutingModule
     ],
     providers: [
-        BooksService
+        BooksService,
+        ModalService
     ],
     bootstrap: [AppComponent]
 })

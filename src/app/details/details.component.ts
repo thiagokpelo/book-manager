@@ -1,7 +1,4 @@
-import { BooksService } from './../books/books.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ISubscription } from 'rxjs/Subscription';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 import { Book } from './../shared/model/book';
 
@@ -10,30 +7,20 @@ import { Book } from './../shared/model/book';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit, OnDestroy {
+export class DetailsComponent implements OnInit {
 
-    private bookId: String;
+    @Output('onClose')
+    private onClose: EventEmitter<any> = new EventEmitter();
+
+    @Input('book')
     private book: Book;
-    private subscription: ISubscription;
 
-    constructor(
-        private booksService: BooksService,
-        private activatedRoute: ActivatedRoute,
-        private router: Router
-    ) { }
+    constructor() { }
 
-  ngOnInit() {
-      this.subscription = this.activatedRoute.params
-          .subscribe((params: Params) => this.bookId = params.id);
-      this.booksService.getBook(this.bookId).forEach(res => this.book = res);
-  }
+  ngOnInit() {}
 
-  ngOnDestroy() {
-      this.subscription.unsubscribe();
-  }
-
-  goBack() {
-      this.router.navigate(['/books']);
+  close() {
+      this.onClose.emit();
   }
 
 }

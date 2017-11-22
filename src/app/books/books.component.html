@@ -1,6 +1,31 @@
-<app-header (onBooks)="getBooks($event)" [queryParam]="queryParam" [page]="page"></app-header>
+<div class="jumbotron">
+  <div class="container">
+    <h1>
+      <span class="glyphicon glyphicon-book"></span> Books Manager
+    </h1>
+
+    <form #f="ngForm" class="form-inline" (ngSubmit)="serchBooks(f)" novalidate>
+      <div class="form-group">
+        <label class="sr-only" for="search">Search books</label>
+        <input type="text" class="form-control input-lg" id="search" name="search" placeholder="Search your book here..." [(ngModel)]="search">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">Search</button>
+    </form>
+  </div>
+</div>
 
 <app-cards-box
   *ngIf="resultSearch && resultSearch.items.length > 0"
   [result]="resultSearch"
-  (onChangePage)="getPage($event)"></app-cards-box>
+  (onChangePage)="getPage($event)"
+  (onChooseBook)="getBook($event)"
+></app-cards-box>
+
+<app-modal id="modalDetails">
+  <div class="modalApp">
+    <div class="modal-body">
+      <app-details (onClose)="closeModal('modalDetails')" [book]="book"></app-details>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</app-modal>

@@ -1,9 +1,12 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ISubscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
+import { ModalService } from './../shared/modal/modal.service';
 import { BooksService } from './books.service';
+
+import { Book } from './../shared/model/book';
 
 @Component({
     selector: 'app-books',
@@ -12,20 +15,21 @@ import { BooksService } from './books.service';
 })
 export class BooksComponent implements OnInit, OnDestroy {
 
-    private subscription: ISubscription;
-    private resultSearch;
-    private queryParam: String;
-    private page: String;
+    private subscription: Subscription;
+    private resultSearch: any;
+    private page: string;
+    private searchText: string;
+    private search: string;
+    private book: Book;
 
     constructor(
         private activateRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private modalService: ModalService,
+        private booksService: BooksService
     ) {}
 
-    ngOnInit() {
-        this.subscription = this.activateRoute.queryParams
-            .subscribe((params: Params) => this.queryParam = params.q);
-    }
+    ngOnInit() {}
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
@@ -35,7 +39,32 @@ export class BooksComponent implements OnInit, OnDestroy {
         this.resultSearch = result;
     }
 
-    getPage(page: String) {
+    getPage(page: string) {
         this.page = page;
+    }
+
+    getBook(id: string) {
+        console.log(id);
+        this.subscription = this.booksService
+            .getBook(id)
+            .subscribe(res => {
+                this.book = res;
+                this.openModal('modalDetails');
+            });
+    }
+
+    openModal(id: string) {
+        this.modalService.open(id);
+    }
+
+    closeModal(id: string) {
+        this.modalService.close(id);
+    }
+
+    serchBooks(f: NgForm): void {
+        this.searchText = f.value.search;
+        this.subscription = this.booksService
+            .search(f.value.search, '12', 0)
+            .subscribe(res => this.resultSearch = res);
     }
 }

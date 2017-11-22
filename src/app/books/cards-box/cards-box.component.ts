@@ -18,6 +18,9 @@ export class CardsBoxComponent implements OnChanges {
     @Output('onChangePage')
     private onChangePage: EventEmitter<String> = new EventEmitter();
 
+    @Output('onChooseBook')
+    private onChooseBook: EventEmitter<String> = new EventEmitter();
+
     private countPage: number[] = [12, 24, 36];
     private books: Book[];
 
@@ -33,5 +36,9 @@ export class CardsBoxComponent implements OnChanges {
 
     getPage(page: String): void {
         this.onChangePage.emit(page);
+    }
+
+    getBook(id: string) {
+        this.onChooseBook.emit(id);
     }
 }
