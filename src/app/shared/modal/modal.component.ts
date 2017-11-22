@@ -26,7 +26,7 @@ export class ModalComponent implements OnInit, OnDestroy {
         }
 
         const $body = this.el.nativeElement.closest('body');
-        $body.insertAdjacentHTML('beforeend', this.element);
+        $body.insertAdjacentHTML('beforeend', this.element.nativeElement);
 
         this.element.nativeElement.addEventListener('click', function (e: any) {
             const target = e.target;
@@ -36,7 +36,6 @@ export class ModalComponent implements OnInit, OnDestroy {
         });
 
         this.modalService.add(this);
-        console.log(this);
     }
 
     ngOnDestroy(): void {
@@ -45,9 +44,6 @@ export class ModalComponent implements OnInit, OnDestroy {
     }
 
     open(): void {
-        console.log('component');
-        console.log(this.element.nativeElement.style);
-
         this.element.nativeElement.style.display = 'block';
         this.element.nativeElement.style.opacity = '1';
         this.el.nativeElement.closest('body').classList.add('modal-open');

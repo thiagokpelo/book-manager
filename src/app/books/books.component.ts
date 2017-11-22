@@ -44,7 +44,6 @@ export class BooksComponent implements OnInit, OnDestroy {
     }
 
     getBook(id: string) {
-        console.log(id);
         this.subscription = this.booksService
             .getBook(id)
             .subscribe(res => {

@@ -16,6 +16,7 @@
 
 <app-cards-box
   *ngIf="resultSearch && resultSearch.items.length > 0"
+  [searchText]="searchText"
   [result]="resultSearch"
   (onChangePage)="getPage($event)"
   (onChooseBook)="getBook($event)"
