@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import * as _ from 'lodash';
 
@@ -10,7 +10,7 @@ import { LocalStorageService } from '../../shared/services/local-storage.service
     templateUrl: './cards-box.component.html',
     styleUrls: ['./cards-box.component.scss']
 })
-export class CardsBoxComponent implements OnChanges {
+export class CardsBoxComponent implements OnInit {
 
     @Input('result')
     private result;
@@ -28,18 +28,19 @@ export class CardsBoxComponent implements OnChanges {
     private countPage = [12, 24, 36];
     private booksPerPage = 12;
     private realBooks: Book[];
-    private localStorage = JSON.parse(localStorage['books']);
+    private localStorage = [];
 
-    constructor() {}
+    constructor(private localStorageService: LocalStorageService) {}
 
-    ngOnChanges() {
-        this.books = this.result ? this.createBooks(this.result.items) : [];
-        this.realBooks = _.intersectionBy(this.books, this.localStorage.items, 'id');
-        console.log(this.realBooks);
-        console.log('------------------------');
-        console.log(this.books);
-        console.log('------------------------');
-        console.log(this.localStorage.items);
+    ngOnInit() {
+        if (this.localStorageService.hasStorage()) {
+            this.localStorageService
+                .getAllItems()
+                .subscribe(books => this.localStorage = books);
+
+                this.books = this.result ? this.createBooks(this.result.items) : [];
+                this.realBooks = _.intersectionBy(this.books, this.localStorage, 'id');
+        }
     }
 
     createBooks(items): Array<Book> {

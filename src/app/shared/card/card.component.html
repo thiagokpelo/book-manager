@@ -1,6 +1,6 @@
 <div class="col-xs-12 col-sm-6 col-md-3">
   <div class="thumbnail">
-    <label class="favorite" for="favorite_{{book?.id}}" >
+    <label class="favorite" for="favorite_{{book?.id}}" [title]="favoriteChecked ? 'Remova dos favoritos' : 'Adicione aos favoritos'">
       <span [ngClass]="{'glyphicon-star': favoriteChecked, 'glyphicon-star-empty': !favoriteChecked}" class="glyphicon"></span>
       <input type="checkbox" name="favorite" id="favorite_{{book?.id}}"  [checked]="favoriteChecked" (change)="changeFavorite(book)" [hidden]>
     </label>

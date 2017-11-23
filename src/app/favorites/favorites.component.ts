@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
+import { BooksService } from './../books/books.service';
+import { ModalService } from './../shared/modal/modal.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
 
 import { Book } from '../shared/model/book';
@@ -10,20 +14,39 @@ import { Book } from '../shared/model/book';
 })
 export class FavoritesComponent implements OnInit {
 
-    @Input('book')
-    private book;
+    private books: Book[] = [];
+    private subscription: Subscription;
+    private book: Book;
 
-    private localStorageServices: LocalStorageService = new LocalStorageService('books');
-    private books = [];
-
-    constructor() { }
+    constructor(
+        private booksService: BooksService,
+        private modalService: ModalService,
+        private localStorageServices: LocalStorageService
+    ) { }
 
     ngOnInit() {
         if (this.localStorageServices.hasStorage()) {
-            this.localStorageServices.getAllItems().subscribe(books => this.books = books);
+            this.localStorageServices
+                .getAllItems()
+                .subscribe(books => this.books = books);
         }
+    }
 
-        console.log(this.books);
+    getBook(id: string) {
+        this.subscription = this.booksService
+            .getBook(id)
+            .subscribe(res => {
+                this.book = res;
+                this.openModal('modalDetails');
+            });
+    }
+
+    openModal(id: string) {
+        this.modalService.open(id);
+    }
+
+    closeModal(id: string) {
+        this.modalService.close(id);
     }
 
 }

@@ -7,3 +7,12 @@
     <app-card *ngFor="let book of books" [book]="book" [favoriteChecked]="true" (onGetBookId)="getBook($event)"></app-card>
   </div>
 </div>
+
+<app-modal id="modalDetails">
+  <div class="modalApp">
+    <div class="modal-body">
+      <app-details (onClose)="closeModal('modalDetails')" [book]="book"></app-details>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</app-modal>

@@ -7,13 +7,13 @@ import { Observable } from 'rxjs/Observable';
 export class LocalStorageService {
 
     private key: string;
-    private localStorage;
+    localStorage = [];
 
-    constructor(key: string) {
-        this.key = key;
+    constructor() {
+        this.key = 'books';
 
         if (!localStorage[this.key]) {
-            localStorage[this.key] = JSON.stringify({items: []});
+            localStorage[this.key] = JSON.stringify([]);
         }
 
         this.localStorage = JSON.parse(localStorage[this.key]);
@@ -21,40 +21,39 @@ export class LocalStorageService {
 
     getAllItems(): Observable<any> {
         return Observable
-            .create(observer => observer.next(this.localStorage.items));
+            .create(observer => observer.next(this.localStorage));
     }
 
     getItem(item: any): Observable<any> {
-        const selectedItem = this.localStorage.items.filter(b => b.id === item.id);
+        const selectedItem = this.localStorage.find(b => b.id === item.id);
         return Observable
             .create(observer => observer.next(selectedItem));
     }
 
     setItem(item: any): Observable<any> {
-        this.localStorage.items.push(item);
+        this.localStorage.push(item);
         this.updateStorage();
 
         return Observable
-            .create(observer => observer.next(this.localStorage.items));
+            .create(observer => observer.next(this.localStorage));
     }
 
     removeItem(item: any): Observable<any> {
-        const selectedItem = this.localStorage.items.filter(b => b.id === item.id);
-        const index = this.localStorage.items.indexOf(selectedItem);
+        const selectedItem = this.localStorage.find(b => b.id === item.id);
+        const index = this.localStorage.indexOf(selectedItem);
+        this.localStorage.splice(index, 1);
 
-        this.localStorage.items.splice(index, 1);
         this.updateStorage();
 
         return Observable
-            .create(observer => observer.next(this.localStorage.items));
+            .create(observer => observer.next(this.localStorage));
     }
 
     updateStorage(): void {
-        localStorage.setItem(this.key, JSON.stringify(this.localStorage));
+        localStorage[this.key] = JSON.stringify(this.localStorage);
     }
 
     hasStorage(): boolean {
         return !!(localStorage[this.key] && localStorage[this.key] !== null);
     }
-
 }

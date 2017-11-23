@@ -23,9 +23,7 @@ export class CardComponent implements OnInit {
     @Output('onGetBookId')
     private onGetBookId: EventEmitter<String> = new EventEmitter();
 
-    private localStorageService: LocalStorageService = new LocalStorageService('books');
-
-    constructor() { }
+    constructor(private localStorageService: LocalStorageService) { }
 
     ngOnInit() {
     }
