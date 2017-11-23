@@ -24,3 +24,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Fixes
 Identifiquei que o valor da propriedade `totalItems` da resposta da API retorna cada vez um valor (tanto para mais como para menos) com isso a paginação dos itens varia de forma brusca e também em algumas páginas não retorna nenhum livro encontrado (a resposta da API vem vazia). Em alguns fóruns o pessoal relata que é um problema da API mesmo, ela é randomica e varia bastante de acordo com o `startIndex` que é enviado.
+
+[Product Forums](https://productforums.google.com/forum/#!topicsearchin/books-api/pagination)

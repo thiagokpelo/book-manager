@@ -45,7 +45,12 @@
     text-overflow: ellipsis;
   }
 
-  label[for="favorite"] {
+  .favorite {
     float: right;
+    font-size: 24px;
+
+    input {
+      display: none;
+    }
   }
 }

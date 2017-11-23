@@ -1,6 +1,9 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
+import * as _ from 'lodash';
+
 import { Book } from './../../shared/model/book';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Component({
     selector: 'app-cards-box',
@@ -24,11 +27,19 @@ export class CardsBoxComponent implements OnChanges {
     private books: Book[];
     private countPage = [12, 24, 36];
     private booksPerPage = 12;
+    private realBooks: Book[];
+    private localStorage = JSON.parse(localStorage['books']);
 
     constructor() {}
 
     ngOnChanges() {
         this.books = this.result ? this.createBooks(this.result.items) : [];
+        this.realBooks = _.intersectionBy(this.books, this.localStorage.items, 'id');
+        console.log(this.realBooks);
+        console.log('------------------------');
+        console.log(this.books);
+        console.log('------------------------');
+        console.log(this.localStorage.items);
     }
 
     createBooks(items): Array<Book> {

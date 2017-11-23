@@ -1,8 +1,8 @@
 <div class="col-xs-12 col-sm-6 col-md-3">
   <div class="thumbnail">
-    <label for="favorite">
-      <span [class]="favorite ? 'glyphicon-star' : 'glyphicon-star-empty'" class="glyphicon"></span>
-      <input type="checkbox" name="favorite" id="favorite_{{book?.id}}" class="favorite" #favorite (change)="changeFavorite(book)">
+    <label class="favorite" for="favorite_{{book?.id}}" >
+      <span [ngClass]="{'glyphicon-star': favoriteChecked, 'glyphicon-star-empty': !favoriteChecked}" class="glyphicon"></span>
+      <input type="checkbox" name="favorite" id="favorite_{{book?.id}}"  [checked]="favoriteChecked" (change)="changeFavorite(book)" [hidden]>
     </label>
     <a class="linkImage" (click)="getBook(book?.id)">
       <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="{{book?.volumeInfo.title}}">

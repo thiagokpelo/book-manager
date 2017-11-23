@@ -4,6 +4,6 @@
   </div>
 
   <div class="row">
-    <app-card *ngFor="let book of books" [book]="book" (onGetBookId)="getBook($event)"></app-card>
+    <app-card *ngFor="let book of books" [book]="book" [favoriteChecked]="true" (onGetBookId)="getBook($event)"></app-card>
   </div>
 </div>

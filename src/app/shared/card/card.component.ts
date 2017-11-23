@@ -11,11 +11,11 @@ import { Book } from './../model/book';
 })
 export class CardComponent implements OnInit {
 
-    @ViewChild('favorite')
-    private favorite;
-
     @Input('book')
     private book: Book;
+
+    @Input('favoriteChecked')
+    private favoriteChecked: boolean;
 
     @Input('searchText')
     private searchText: String;
@@ -48,9 +48,9 @@ export class CardComponent implements OnInit {
     }
 
     changeFavorite(book: Book) {
-        this.favorite.checked = !this.favorite.checked;
+        this.favoriteChecked = !this.favoriteChecked;
 
-        if (this.favorite.checked) {
+        if (this.favoriteChecked) {
             this.localStorageService.setItem(book).subscribe(res => console.log('SetItem: ', res), err => console.error('SetItem: ', err));
         } else {
             this.localStorageService.removeItem(book).subscribe(res => (
