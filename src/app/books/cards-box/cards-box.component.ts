@@ -34,12 +34,7 @@ export class CardsBoxComponent implements OnInit {
 
     ngOnInit() {
         if (this.localStorageService.hasStorage()) {
-            this.localStorageService
-                .getAllItems()
-                .subscribe(books => this.localStorage = books);
-
-                this.books = this.result ? this.createBooks(this.result.items) : [];
-                this.realBooks = _.intersectionBy(this.books, this.localStorage, 'id');
+            this.markLikeFavorite();
         }
     }
 
@@ -53,5 +48,25 @@ export class CardsBoxComponent implements OnInit {
 
     getBook(id: string) {
         this.onChooseBook.emit(id);
+    }
+
+    private markLikeFavorite(): void {
+        const _that = this;
+
+        this.localStorageService
+            .getAllItems()
+            .subscribe(books => {
+                this.localStorage = books;
+
+                this.books = this.result ? this.createBooks(this.result.items) : [];
+
+                this.books.forEach((book) => {
+                    _that.localStorage.forEach(storage => {
+                        if (book['id'] === storage.id) {
+                            book['isFavorite'] = true;
+                        }
+                    });
+                });
+            });
     }
 }

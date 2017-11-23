@@ -14,7 +14,7 @@
   </div>
 
   <div class="row">
-    <app-card *ngFor="let book of books" [book]="book" [searchText]="searchText" (onGetBookId)="getBook($event)"></app-card>
+    <app-card *ngFor="let book of books" [book]="book" [searchText]="searchText" [favoriteChecked]="book?.isFavorite" (onGetBookId)="getBook($event)"></app-card>
   </div>
 
   <app-pagination [booksPerPage]="booksPerPage" [totalItems]="result?.totalItems" (onChangePage)="getPage($event)"></app-pagination>
