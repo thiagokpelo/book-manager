@@ -21,6 +21,8 @@
         <br>
         Page Count: {{book?.volumeInfo?.pageCount}}
         <br>
+        ISBN10: {{book?.volumeInfo?.industryIdentifiers[1].identifier}}
+        <br>
         Categories:
         <ng-container *ngFor="let categorie of book?.volumeInfo?.categories">
           <span class="label label-default">{{categorie}}</span>

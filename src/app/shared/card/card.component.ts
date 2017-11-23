@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+
+import { LocalStorageService } from '../services/local-storage.service';
 
 import { Book } from './../model/book';
 
@@ -9,6 +11,9 @@ import { Book } from './../model/book';
 })
 export class CardComponent implements OnInit {
 
+    @ViewChild('favorite')
+    private favorite;
+
     @Input('book')
     private book: Book;
 
@@ -17,6 +22,8 @@ export class CardComponent implements OnInit {
 
     @Output('onGetBookId')
     private onGetBookId: EventEmitter<String> = new EventEmitter();
+
+    private localStorageService: LocalStorageService = new LocalStorageService('books');
 
     constructor() { }
 
@@ -38,6 +45,17 @@ export class CardComponent implements OnInit {
 
     getBook(id: string): void {
         this.onGetBookId.emit(id);
+    }
+
+    changeFavorite(book: Book) {
+        this.favorite.checked = !this.favorite.checked;
+
+        if (this.favorite.checked) {
+            this.localStorageService.setItem(book).subscribe(res => console.log('SetItem: ', res), err => console.error('SetItem: ', err));
+        } else {
+            this.localStorageService.removeItem(book).subscribe(res => (
+                console.log('RemoveItem:', res), err => console.error('RemoveItem:', err)));
+        }
     }
 
 }

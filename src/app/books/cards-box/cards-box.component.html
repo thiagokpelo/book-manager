@@ -5,15 +5,9 @@
     </div>
     <div class="col-md-6 form-group">
       <form class="form-inline pull-right">
-        <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked> All
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Favorites
-        </label>
-        <label for="pages" class="pagesLabel">Books per page</label>
-        <select class="form-control" id="pages" name="pages" [(ngModel)]="pages">
-          <option *ngFor="let value of countPage" [ngValue]="value">{{value}}</option>
+        <label for="booksPerPage" class="pagesLabel">Books per page</label>
+        <select class="form-control" id="booksPerPage" name="booksPerPage" [(ngModel)]="booksPerPage">
+          <option *ngFor="let count of countPages" [value]="count">{{count}}</option>
         </select>
       </form>
     </div>
@@ -23,5 +17,5 @@
     <app-card *ngFor="let book of books" [book]="book" [searchText]="searchText" (onGetBookId)="getBook($event)"></app-card>
   </div>
 
-  <app-pagination [maxResults]="result?.maxResults" [totalItems]="result?.totalItems" (onChangePage)="getPage($event)"></app-pagination>
+  <app-pagination [booksPerPage]="booksPerPage" [totalItems]="result?.totalItems" (onChangePage)="getPage($event)"></app-pagination>
 </div>

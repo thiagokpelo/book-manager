@@ -45,7 +45,7 @@
     text-overflow: ellipsis;
   }
 
-  .favorite {
+  label[for="favorite"] {
     float: right;
   }
 }

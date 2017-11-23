@@ -25,9 +25,6 @@ export class ModalComponent implements OnInit, OnDestroy {
             return;
         }
 
-        const $body = this.el.nativeElement.closest('body');
-        $body.insertAdjacentHTML('beforeend', this.element.nativeElement);
-
         this.element.nativeElement.addEventListener('click', function (e: any) {
             const target = e.target;
             if (!target.closest('.modal-body').length) {

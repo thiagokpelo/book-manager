@@ -16,13 +16,14 @@ export class CardsBoxComponent implements OnChanges {
     private searchText;
 
     @Output('onChangePage')
-    private onChangePage: EventEmitter<String> = new EventEmitter();
+    private onChangePage: EventEmitter<any> = new EventEmitter();
 
     @Output('onChooseBook')
     private onChooseBook: EventEmitter<String> = new EventEmitter();
 
-    private countPage: number[] = [12, 24, 36];
     private books: Book[];
+    private countPage = [12, 24, 36];
+    private booksPerPage = 12;
 
     constructor() {}
 
@@ -34,7 +35,7 @@ export class CardsBoxComponent implements OnChanges {
         return items.map(item => new Book(item));
     }
 
-    getPage(page: String): void {
+    getPage(page): void {
         this.onChangePage.emit(page);
     }
 

@@ -4,11 +4,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BooksComponent } from './books/books.component';
 import { DetailsComponent } from './details/details.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 const routes: Routes = [
     {
         path: 'books',
         component: BooksComponent,
+    },
+    {
+        path: 'books/favorites',
+        component: FavoritesComponent
     },
     {
         path: '',

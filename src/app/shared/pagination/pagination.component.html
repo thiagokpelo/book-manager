@@ -5,8 +5,8 @@
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li *ngFor="let page of pages; let i=index" [attr.data-index]="i">
-      <a (click)="changePage(i)">{{page}}</a>
+    <li *ngFor="let page of pages; let i=index; trackBy: index">
+      <a (click)="changePage(i)">{{i + 1}}</a>
     </li>
     <li>
       <a href="#" aria-label="Next">

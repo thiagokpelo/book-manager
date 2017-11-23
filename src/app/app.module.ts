@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ModalService } from './shared/modal/modal.service';
 import { BooksService } from './books/books.service';
+import { LocalStorageService } from './shared/services/local-storage.service';
 
 import { AppComponent } from './app.component';
 import { BooksComponent } from './books/books.component';
@@ -16,6 +17,7 @@ import { ErrorComponent } from './error/error.component';
 import { PaginationComponent } from './shared/pagination/pagination.component';
 import { CardsBoxComponent } from './books/cards-box/cards-box.component';
 import { ModalComponent } from './shared/modal/modal.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { ModalComponent } from './shared/modal/modal.component';
         ErrorComponent,
         PaginationComponent,
         CardsBoxComponent,
-        ModalComponent
+        ModalComponent,
+        FavoritesComponent
     ],
     imports: [
         HttpModule,
@@ -37,7 +40,8 @@ import { ModalComponent } from './shared/modal/modal.component';
     ],
     providers: [
         BooksService,
-        ModalService
+        ModalService,
+        LocalStorageService
     ],
     bootstrap: [AppComponent]
 })

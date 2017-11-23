@@ -1,21 +1,18 @@
-<div class="jumbotron">
-  <div class="container">
-    <h1>
-      <span class="glyphicon glyphicon-book"></span> Books Manager
-    </h1>
-
-    <form #f="ngForm" class="form-inline" (ngSubmit)="serchBooks(f)" novalidate>
-      <div class="form-group">
-        <label class="sr-only" for="search">Search books</label>
-        <input type="text" class="form-control input-lg" id="search" name="search" placeholder="Search your book here..." [(ngModel)]="search">
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg">Search</button>
-    </form>
+<div class="container">
+  <div class="jumbotron">
+      <h1>API Google Books</h1>
+      <form #f="ngForm" class="form-inline" (ngSubmit)="searchBooks(f)" novalidate>
+        <div class="form-group">
+          <label class="sr-only" for="search">Search books</label>
+          <input type="text" class="form-control input-lg" id="search" name="search" placeholder="Search your book here..." ngModel required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span></button>
+      </form>
   </div>
 </div>
 
 <app-cards-box
-  *ngIf="resultSearch && resultSearch.items.length > 0"
+  *ngIf="resultSearch && resultSearch.items?.length > 0"
   [searchText]="searchText"
   [result]="resultSearch"
   (onChangePage)="getPage($event)"

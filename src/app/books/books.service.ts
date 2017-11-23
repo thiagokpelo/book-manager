@@ -14,9 +14,9 @@ export class BooksService {
 
     constructor(private http: Http) {}
 
-    search(text: String, max: String = '12', start: number = 0): Observable<any> {
+    search(text: String, limit = 12, offset: number = 0): Observable<any> {
         return this.http
-            .get(`${URL}${this.replaceURL(text, max, start)}&${URL_KEY}`)
+            .get(`${URL}${this.replaceURL(text, limit, offset)}&${URL_KEY}`)
             .map(res => res.json());
     }
 
@@ -26,11 +26,11 @@ export class BooksService {
             .map(res => res.json());
     }
 
-    private replaceURL(text: any, max: any, start: any): String {
+    private replaceURL(text: any, limit: any, offset: any): String {
         return URL_SEARCH
             .replace('{search}', text)
-            .replace('{start}', start)
-            .replace('{max}', max)
+            .replace('{start}', offset)
+            .replace('{max}', limit)
             .replace(' ', '+');
     }
 

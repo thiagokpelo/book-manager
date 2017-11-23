@@ -1,6 +1,9 @@
 <div class="col-xs-12 col-sm-6 col-md-3">
   <div class="thumbnail">
-    <input type="checkbox" name="favorite" id="favorite_{{book?.id}}" class="favorite">
+    <label for="favorite">
+      <span [class]="favorite ? 'glyphicon-star' : 'glyphicon-star-empty'" class="glyphicon"></span>
+      <input type="checkbox" name="favorite" id="favorite_{{book?.id}}" class="favorite" #favorite (change)="changeFavorite(book)">
+    </label>
     <a class="linkImage" (click)="getBook(book?.id)">
       <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="{{book?.volumeInfo.title}}">
     </a>

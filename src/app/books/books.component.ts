@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
@@ -15,12 +15,15 @@ import { Book } from './../shared/model/book';
 })
 export class BooksComponent implements OnInit, OnDestroy {
 
+    @ViewChild(NgForm)
+    private f: NgForm;
+
     private subscription: Subscription;
     private resultSearch: any;
-    private page: string;
     private searchText: string;
     private search: string;
     private book: Book;
+    private page = 0;
 
     constructor(
         private activateRoute: ActivatedRoute,
@@ -32,15 +35,18 @@ export class BooksComponent implements OnInit, OnDestroy {
     ngOnInit() {}
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     getBooks(result: any) {
         this.resultSearch = result;
     }
 
-    getPage(page: string) {
+    getPage(page) {
         this.page = page;
+        this.searchBooks(this.f);
     }
 
     getBook(id: string) {
@@ -60,10 +66,10 @@ export class BooksComponent implements OnInit, OnDestroy {
         this.modalService.close(id);
     }
 
-    serchBooks(f: NgForm): void {
+    searchBooks(f: NgForm): void {
         this.searchText = f.value.search;
         this.subscription = this.booksService
-            .search(f.value.search, '12', 0)
+            .search(f.value.search, 12, this.page * 12)
             .subscribe(res => this.resultSearch = res);
     }
 }
