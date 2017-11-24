@@ -18,6 +18,7 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
 import { CardsBoxComponent } from './books/cards-box/cards-box.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { AlertComponent } from './shared/alert/alert.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
         PaginationComponent,
         CardsBoxComponent,
         ModalComponent,
-        FavoritesComponent
+        FavoritesComponent,
+        AlertComponent
     ],
     imports: [
         HttpModule,

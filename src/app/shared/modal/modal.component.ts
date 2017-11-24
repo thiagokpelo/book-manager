@@ -3,7 +3,6 @@ import { Component, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
 import { ModalService } from './modal.service';
 
 @Component({
-    moduleId: module.id.toString(),
     selector: 'app-modal',
     template: '<ng-content></ng-content>',
     styleUrls: ['./modal.component.scss']

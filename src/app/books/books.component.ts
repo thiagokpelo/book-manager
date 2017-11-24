@@ -7,6 +7,7 @@ import { ModalService } from './../shared/modal/modal.service';
 import { BooksService } from './books.service';
 
 import { Book } from './../shared/model/book';
+import { Volume } from '../shared/model/volume';
 
 @Component({
     selector: 'app-books',
@@ -19,10 +20,10 @@ export class BooksComponent implements OnInit, OnDestroy {
     private f: NgForm;
 
     private subscription: Subscription;
-    private resultSearch: any;
+    private resultSearch: Volume;
+    private book: Book;
     private searchText: string;
     private search: string;
-    private book: Book;
     private page = 0;
 
     constructor(
@@ -40,7 +41,7 @@ export class BooksComponent implements OnInit, OnDestroy {
         }
     }
 
-    getBooks(result: any) {
+    getBooks(result: Volume) {
         this.resultSearch = result;
     }
 

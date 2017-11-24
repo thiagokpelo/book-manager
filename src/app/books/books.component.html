@@ -1,13 +1,15 @@
 <div class="container">
-  <div class="jumbotron">
-      <h1>API Google Books</h1>
-      <form #f="ngForm" class="form-inline" (ngSubmit)="searchBooks(f)" novalidate>
-        <div class="form-group">
-          <label class="sr-only" for="search">Search books</label>
-          <input type="text" class="form-control input-lg" id="search" name="search" placeholder="Search your book here..." ngModel required>
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span></button>
-      </form>
+  <div class="row">
+    <div class="jumbotron">
+        <h1>API Google Books</h1>
+        <form #f="ngForm" class="form-inline" (ngSubmit)="searchBooks(f)" novalidate>
+          <div class="form-group">
+            <label class="sr-only" for="search">Search books</label>
+            <input type="text" class="form-control input-lg" id="search" name="search" placeholder="Search your book here..." ngModel required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+    </div>
   </div>
 </div>
 

@@ -1,10 +1,21 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1>Favorite Books</h1>
+  <div class="row">
+    <div class="jumbotron">
+      <h1>Favorite Books</h1>
+    </div>
   </div>
 
   <div class="row">
-    <app-card *ngFor="let book of books" [book]="book" [favoriteChecked]="true" (onGetBookId)="getBook($event)"></app-card>
+    <ng-container *ngIf="books && books.length > 0; else elseTemplate">
+      <app-card *ngFor="let book of books" [book]="book" [favoriteChecked]="true" (onGetBookId)="getBook($event)"></app-card>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="alert alert-warning" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Warning:</span>
+         Your favorites list is empty.
+      </div>
+    </ng-template>
   </div>
 </div>
 

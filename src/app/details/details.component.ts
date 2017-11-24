@@ -3,9 +3,9 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Book } from './../shared/model/book';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+    selector: 'app-details',
+    templateUrl: './details.component.html',
+    styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
 
@@ -17,10 +17,10 @@ export class DetailsComponent implements OnInit {
 
     constructor() { }
 
-  ngOnInit() {}
+    ngOnInit() { }
 
-  close() {
-      this.onClose.emit();
-  }
+    close() {
+        this.onClose.emit();
+    }
 
 }

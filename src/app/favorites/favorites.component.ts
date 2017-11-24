@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { BooksService } from './../books/books.service';
@@ -12,7 +12,7 @@ import { Book } from '../shared/model/book';
     templateUrl: './favorites.component.html',
     styleUrls: ['./favorites.component.scss']
 })
-export class FavoritesComponent implements OnInit {
+export class FavoritesComponent implements OnInit, OnDestroy {
 
     private books: Book[] = [];
     private subscription: Subscription;
@@ -26,9 +26,15 @@ export class FavoritesComponent implements OnInit {
 
     ngOnInit() {
         if (this.localStorageServices.hasStorage()) {
-            this.localStorageServices
+            this.subscription = this.localStorageServices
                 .getAllItems()
                 .subscribe(books => this.books = books);
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 
@@ -36,7 +42,7 @@ export class FavoritesComponent implements OnInit {
         this.subscription = this.booksService
             .getBook(id)
             .subscribe(res => {
-                this.book = res;
+                this.book = new Book(res);
                 this.openModal('modalDetails');
             });
     }

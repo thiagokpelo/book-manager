@@ -4,7 +4,7 @@ a {
 
 mark {
   padding: 0;
-  background-color: #ff0!important;
+  background-color: #c3ecf1!important;
   color: #000 !important;
 }
 
@@ -37,6 +37,21 @@ app-modal {
     z-index: 900;
   }
 }
+
+app-alert {
+  display: none;
+  position: fixed;
+  top: 15px;
+  right: 25px;
+
+  transition: all 0.5s ease-in-out;
+
+  &.active {
+    display: block;
+  }
+}
+
+
 body {
   &.modal-open {
     overflow: hidden;

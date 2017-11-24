@@ -1,41 +1,41 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-
-import * as _ from 'lodash';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 
 import { Book } from './../../shared/model/book';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { Volume } from '../../shared/model/volume';
 
 @Component({
     selector: 'app-cards-box',
     templateUrl: './cards-box.component.html',
     styleUrls: ['./cards-box.component.scss']
 })
-export class CardsBoxComponent implements OnInit {
+export class CardsBoxComponent implements OnInit, OnChanges {
 
     @Input('result')
-    private result;
+    private result: Volume;
 
     @Input('searchText')
-    private searchText;
+    private searchText: string;
 
-    @Output('onChangePage')
+    @Output()
     private onChangePage: EventEmitter<any> = new EventEmitter();
 
-    @Output('onChooseBook')
+    @Output()
     private onChooseBook: EventEmitter<String> = new EventEmitter();
 
-    private books: Book[];
-    private countPage = [12, 24, 36];
     private booksPerPage = 12;
-    private realBooks: Book[];
-    private localStorage = [];
+    private books: Book[] = [];
+    private localStorage: Book[] = [];
 
-    constructor(private localStorageService: LocalStorageService) {}
+    constructor(private localStorageService: LocalStorageService) {
+    }
 
     ngOnInit() {
-        if (this.localStorageService.hasStorage()) {
-            this.markLikeFavorite();
-        }
+        this.markLikeFavorite();
+    }
+
+    ngOnChanges() {
+        this.markLikeFavorite();
     }
 
     createBooks(items): Array<Book> {
@@ -51,22 +51,22 @@ export class CardsBoxComponent implements OnInit {
     }
 
     private markLikeFavorite(): void {
-        const _that = this;
+        if (this.localStorageService.hasStorage()) {
+            const _that = this;
 
-        this.localStorageService
-            .getAllItems()
-            .subscribe(books => {
-                this.localStorage = books;
-
-                this.books = this.result ? this.createBooks(this.result.items) : [];
-
-                this.books.forEach((book) => {
-                    _that.localStorage.forEach(storage => {
-                        if (book['id'] === storage.id) {
-                            book['isFavorite'] = true;
-                        }
+            this.localStorageService
+                .getAllItems()
+                .subscribe(books => {
+                    this.localStorage = books;
+                    this.books = this.result ? this.createBooks(this.result.items) : [];
+                    this.books.forEach((book) => {
+                        _that.localStorage.forEach(storage => {
+                            if (book['id'] === storage.id) {
+                                book['isFavorite'] = true;
+                            }
+                        });
                     });
                 });
-            });
+        }
     }
 }
