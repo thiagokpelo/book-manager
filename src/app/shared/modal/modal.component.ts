@@ -4,11 +4,12 @@ import { ModalService } from './modal.service';
 
 @Component({
     selector: 'app-modal',
-    template: '<ng-content></ng-content>',
+    templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss']
 })
 
 export class ModalComponent implements OnInit, OnDestroy {
+
     @Input() id: string;
     private element: ElementRef;
 
@@ -24,13 +25,6 @@ export class ModalComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.element.nativeElement.addEventListener('click', function (e: any) {
-            const target = e.target;
-            if (!target.closest('.modal-body').length) {
-                modal.close();
-            }
-        });
-
         this.modalService.add(this);
     }
 
@@ -39,14 +33,15 @@ export class ModalComponent implements OnInit, OnDestroy {
         this.element.nativeElement.remove();
     }
 
-    open(): void {
+    private open(): void {
         this.element.nativeElement.style.display = 'block';
         this.element.nativeElement.style.opacity = '1';
         this.el.nativeElement.closest('body').classList.add('modal-open');
     }
 
-    close(): void {
+    private close(): void {
         this.element.nativeElement.style.display = 'none';
+        this.element.nativeElement.style.opacity = '0';
         this.el.nativeElement.closest('body').classList.remove('modal-open');
     }
 }

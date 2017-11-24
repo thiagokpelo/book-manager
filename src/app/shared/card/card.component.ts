@@ -5,14 +5,14 @@ import {
     EventEmitter,
     Output,
     ViewChild,
-    ElementRef
+    ElementRef,
+    OnDestroy
 } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { LocalStorageService } from '../services/local-storage.service';
-
-import { Book } from './../model/book';
-
 import { AlertComponent } from '../alert/alert.component';
+import { Book } from './../model/book';
 import { Types, Messages } from '../model/messages';
 
 @Component({
@@ -20,10 +20,7 @@ import { Types, Messages } from '../model/messages';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
-
-    @ViewChild(AlertComponent)
-    private alert: AlertComponent;
+export class CardComponent implements OnInit, OnDestroy {
 
     @Input()
     private book: Book;
@@ -37,6 +34,10 @@ export class CardComponent implements OnInit {
     @Output()
     private onGetBookId: EventEmitter<String> = new EventEmitter();
 
+    @Output()
+    private onChangeFavorite: EventEmitter<any> = new EventEmitter();
+
+    private subscription: Subscription;
     private message: string;
     private type: string;
 
@@ -48,6 +49,12 @@ export class CardComponent implements OnInit {
     ngOnInit() {
     }
 
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
     getBook(id: string): void {
         this.onGetBookId.emit(id);
     }
@@ -55,21 +62,13 @@ export class CardComponent implements OnInit {
     changeFavorite(book: Book): void {
         this.favoriteChecked = !this.favoriteChecked;
 
-        this.favoriteChecked
+        this.subscription = this.favoriteChecked
             ? this.localStorageService
                 .setItem(book)
-                .subscribe(() => (
-                    this.alertShow(Types.SUCCESS, Messages.ADDED.SUCCESS)), () => this.alertShow(Types.ERROR, Messages.ADDED.ERROR))
+                .subscribe(() => this.onChangeFavorite.emit({ title: book.volumeInfo['title'], type: 'ADDED' }))
             : this.localStorageService
                 .removeItem(book)
-                .subscribe(() => (
-                    this.alertShow(Types.SUCCESS, Messages.DELETED.SUCCESS)), () => this.alertShow(Types.ERROR, Messages.DELETED.ERROR));
-    }
-
-    private alertShow(type: string, message: string): void {
-        this.type = type;
-        this.message = message;
-        this.alert.show();
+                .subscribe(() => this.onChangeFavorite.emit({ title: book.volumeInfo['title'], type: 'DELETED' }));
     }
 
     private createMarkHighlight(text: string): string {

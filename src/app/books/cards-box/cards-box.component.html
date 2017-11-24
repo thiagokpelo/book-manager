@@ -12,6 +12,7 @@
       [searchText]="searchText"
       [favoriteChecked]="book?.isFavorite"
       (onGetBookId)="getBook($event)"
+      (onChangeFavorite)="changeFavorite($event)"
     ></app-card>
   </div>
 
@@ -23,3 +24,5 @@
     ></app-pagination>
   </div>
 </div>
+
+<app-alert></app-alert>

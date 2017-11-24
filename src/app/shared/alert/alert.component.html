@@ -1,3 +1,9 @@
-<div class="topAlert alert alert-{{type}}">
-  <span [ngClass]="type == 'success' ? 'glyphicon-ok' : 'glyphicon-remove'" class="glyphicon" aria-hidden="true"></span> <strong>{{title}}</strong> {{message}}
+<div
+  class="alert"
+  role="alert"
+  [@visibilityChanged]="visiblityState"
+  [ngClass]="{'alert-danger': classError, 'alert-success': classSuccess, 'alert-warning': classWarning}"
+  (mouseover)="cancelTimeoutClean()"
+  (mouseout)="setTimeoutClean()">
+  <span [ngClass]="{'glyphicon-remove-circle' : classError, 'glyphicon-ok-circle': classSuccess, 'glyphicon-exclamation-sign': classWarning}" class="glyphicon" aria-hidden="true"></span><p [innerHTML]='message'></p>
 </div>

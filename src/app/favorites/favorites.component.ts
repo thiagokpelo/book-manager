@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { BooksService } from './../books/books.service';
@@ -6,6 +6,8 @@ import { ModalService } from './../shared/modal/modal.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
 
 import { Book } from '../shared/model/book';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { Messages } from '../shared/model/messages';
 
 @Component({
     selector: 'app-favorites',
@@ -13,6 +15,9 @@ import { Book } from '../shared/model/book';
     styleUrls: ['./favorites.component.scss']
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
+
+    @ViewChild(AlertComponent)
+    private alert: AlertComponent;
 
     private books: Book[] = [];
     private subscription: Subscription;
@@ -38,7 +43,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
         }
     }
 
-    getBook(id: string) {
+    getBook(id: string): void {
         this.subscription = this.booksService
             .getBook(id)
             .subscribe(res => {
@@ -47,12 +52,12 @@ export class FavoritesComponent implements OnInit, OnDestroy {
             });
     }
 
-    openModal(id: string) {
+    openModal(id: string): void {
         this.modalService.open(id);
     }
 
-    closeModal(id: string) {
-        this.modalService.close(id);
+    private changeFavorite(obj): void {
+        this.alert.setSuccess(`${obj.title} ${Messages[obj.type].SUCCESS}`);
     }
 
 }

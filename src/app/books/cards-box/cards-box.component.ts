@@ -1,8 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, ViewChild } from '@angular/core';
 
 import { Book } from './../../shared/model/book';
-import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { Volume } from '../../shared/model/volume';
+import { Messages } from '../../shared/model/messages';
+import { AlertComponent } from './../../shared/alert/alert.component';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Component({
     selector: 'app-cards-box',
@@ -22,6 +24,9 @@ export class CardsBoxComponent implements OnInit, OnChanges {
 
     @Output()
     private onChooseBook: EventEmitter<String> = new EventEmitter();
+
+    @ViewChild(AlertComponent)
+    private alert: AlertComponent;
 
     private booksPerPage = 12;
     private books: Book[] = [];
@@ -48,6 +53,10 @@ export class CardsBoxComponent implements OnInit, OnChanges {
 
     getBook(id: string) {
         this.onChooseBook.emit(id);
+    }
+
+    private changeFavorite(obj) {
+        this.alert.setSuccess(`${obj.title} ${Messages[obj.type].SUCCESS}`);
     }
 
     private markLikeFavorite(): void {

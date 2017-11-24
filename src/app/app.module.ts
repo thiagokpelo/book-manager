@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ModalService } from './shared/modal/modal.service';
 import { BooksService } from './books/books.service';
@@ -38,7 +39,8 @@ import { AlertComponent } from './shared/alert/alert.component';
         HttpModule,
         BrowserModule,
         FormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        BrowserAnimationsModule
     ],
     providers: [
         BooksService,

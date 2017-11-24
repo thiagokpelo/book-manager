@@ -7,7 +7,13 @@
 
   <div class="row">
     <ng-container *ngIf="books && books.length > 0; else elseTemplate">
-      <app-card *ngFor="let book of books" [book]="book" [favoriteChecked]="true" (onGetBookId)="getBook($event)"></app-card>
+      <app-card
+        *ngFor="let book of books"
+        [book]="book"
+        [favoriteChecked]="true"
+        (onGetBookId)="getBook($event)"
+        (onChangeFavorite)="changeFavorite($event)"
+      ></app-card>
     </ng-container>
     <ng-template #elseTemplate>
       <div class="alert alert-warning" role="alert">
@@ -20,10 +26,7 @@
 </div>
 
 <app-modal id="modalDetails">
-  <div class="modalApp">
-    <div class="modal-body">
-      <app-details (onClose)="closeModal('modalDetails')" [book]="book"></app-details>
-    </div>
-  </div>
-  <div class="modal-background"></div>
+    <app-details [book]="book"></app-details>
 </app-modal>
+
+<app-alert></app-alert>

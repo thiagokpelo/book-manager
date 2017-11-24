@@ -11,5 +11,6 @@ export const Messages = {
 
 export const Types = {
     SUCCESS: 'success',
+    DELETE: 'danger',
     ERROR: 'danger'
 };

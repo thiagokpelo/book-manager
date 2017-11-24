@@ -22,10 +22,5 @@
 ></app-cards-box>
 
 <app-modal id="modalDetails">
-  <div class="modalApp">
-    <div class="modal-body">
-      <app-details (onClose)="closeModal('modalDetails')" [book]="book"></app-details>
-    </div>
-  </div>
-  <div class="modal-background"></div>
+    <app-details [book]="book"></app-details>
 </app-modal>
