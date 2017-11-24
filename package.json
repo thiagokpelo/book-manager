@@ -5,11 +5,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --base-href 'book-manager'",
+    "build": "node_modules/.bin/ng serve --prod --base-href https://thiagokpelo.github.io/book-manager/ --aot=false",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "npm run build && angular-cli-ghpages"
+    "deploy": "npm run build && angular-cli-ghpages --branch gh-pages"
   },
   "private": true,
   "dependencies": {
