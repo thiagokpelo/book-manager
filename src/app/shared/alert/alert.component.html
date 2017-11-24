@@ -1,9 +1,0 @@
-<div
-  class="alert"
-  role="alert"
-  [@visibilityChanged]="visiblityState"
-  [ngClass]="{'alert-danger': classError, 'alert-success': classSuccess, 'alert-warning': classWarning}"
-  (mouseover)="cancelTimeoutClean()"
-  (mouseout)="setTimeoutClean()">
-  <span [ngClass]="{'glyphicon-remove-circle' : classError, 'glyphicon-ok-circle': classSuccess, 'glyphicon-exclamation-sign': classWarning}" class="glyphicon" aria-hidden="true"></span><p [innerHTML]='message'></p>
-</div>
