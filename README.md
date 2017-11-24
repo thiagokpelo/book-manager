@@ -1,28 +1,31 @@
 # BookManager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+Projeto gerado pelo [Angular CLI](https://github.com/angular/angular-cli) versão 1.5.0.
 
-## Development server
+### Rodar em Dev
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Rode `ng serve` no terminal para desenvolvimento. Navegue em `http://localhost:4200/`.
 
-## Build
+### Rodar em Prod
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Rode `npm run deploy` para gerar o projeto em `prod` e fazer o deploy.
 
-## Running unit tests
+### Deploy
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+O Processo do deploy esta bem simples, basta fazer um `push` na branch `gh-pages` e aplicação ja esta atualizada.
 
-## Running end-to-end tests
+## Detalhes
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Tecnologia Utilizadas
 
-## Further help
+- HTML5
+- SCSS
+- Angular.io
+- Angular-CLI
+- Webpack
+- Bootstrap
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-## Fixes
+### Fixes
 Identifiquei que o valor da propriedade `totalItems` da resposta da API retorna cada vez um valor (tanto para mais como para menos) com isso a paginação dos itens varia de forma brusca e também em algumas páginas não retorna nenhum livro encontrado (a resposta da API vem vazia). Em alguns fóruns o pessoal relata que é um problema da API mesmo, ela é randomica e varia bastante de acordo com o `startIndex` que é enviado.
 
 [Product Forums](https://productforums.google.com/forum/#!topicsearchin/books-api/pagination)
